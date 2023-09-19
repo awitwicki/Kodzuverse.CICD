@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  teamcity:
+    container_name: teamcity-server
+    image: jetbrains/teamcity-server
+    ports:
+      - "8112:8111"
+    volumes:
+      - ./data_dir:/data/teamcity_server/datadir
+      - ./teamcity-server-logs:/opt/teamcity/logs
+    networks:
+      - teamcity-net
+
+  teamcity-agent:
+    container_name: teamcity-agent
+    build: .
+    privileged: true
+    volumes:
+      - ./agents/agent/conf:/data/teamcity_agent/conf
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+        - AGENT_NAME="Agent builder"
+        - SERVER_URL=http://teamcity:8111
+    networks:
+      - teamcity-net
+
+networks:
+  teamcity-net:
+    driver: bridge
