@@ -7,8 +7,8 @@ services:
     ports:
       - "8112:8111"
     volumes:
-      - ./data_dir:/data/teamcity_server/datadir
-      - ./teamcity-server-logs:/opt/teamcity/logs
+      - ./data_dir/teamcity-server-data:/data/teamcity_server/datadir
+      - ./data_dir/teamcity-server-logs:/opt/teamcity/logs
     networks:
       - teamcity-net
 
@@ -17,7 +17,7 @@ services:
     build: .
     privileged: true
     volumes:
-      - ./agents/agent/conf:/data/teamcity_agent/conf
+      - ./data_dir/teamcity-agent-conf:/data/teamcity_agent/conf
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
         - AGENT_NAME="Agent builder"
