@@ -5,12 +5,12 @@ services:
     container_name: teamcity-server
     image: jetbrains/teamcity-server
     ports:
-      - "8112:8111"
+      - "8111:8111"
     volumes:
       - ./data_dir/teamcity-server-data:/data/teamcity_server/datadir
       - ./data_dir/teamcity-server-logs:/opt/teamcity/logs
     networks:
-      - teamcity-net
+      - kodzuverse
 
   teamcity-agent:
     container_name: teamcity-agent
@@ -23,8 +23,9 @@ services:
         - AGENT_NAME="Agent builder"
         - SERVER_URL=http://teamcity:8111
     networks:
-      - teamcity-net
+      - kodzuverse
 
 networks:
-  teamcity-net:
+  kodzuverse:
+    name: kodzuverse_network
     driver: bridge
