@@ -1,4 +1,4 @@
-FROM jetbrains/teamcity-agent
+FROM jetbrains/teamcity-agent:2025.03.2
 
 # Install docker-compose
 USER root:root
